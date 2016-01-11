@@ -1,0 +1,16 @@
+add_library(Geometry
+	FAxisAlignedBox.cpp
+	FAxisAlignedBox.hpp
+	##
+	FCapsule.cpp
+	FCapsule.hpp
+	##
+	FOrientedBox.cpp
+	FOrientedBox.hpp
+	##
+	FPlane.cpp
+	FPlane.hpp
+	##
+	FSphere.cpp
+	FSphere.hpp
+	)
