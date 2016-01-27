@@ -11,9 +11,10 @@ int main (int argc, char *argv[])
 {
   if (argc < 2)
     {
-    fprintf(stdout,"%s Version %d.%d\n", argv[0],
+    fprintf(stdout,"%s Version %d.%d.%d\n", argv[0],
             LeeEngine_VERSION_MAJOR,
-            LeeEngine_VERSION_MINOR);
+            LeeEngine_VERSION_MINOR,
+            LeeEngine_VERSION_PATCH);
     fprintf(stdout,"Usage: %s number\n",argv[0]);
     return 1;
     }
