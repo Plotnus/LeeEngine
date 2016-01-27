@@ -1,0 +1,9 @@
+*.swp
+*.sln
+*.vcxproj
+*.xcodeproj
+*.o
+*.obj
+*.a
+*.lib
+*.exe
