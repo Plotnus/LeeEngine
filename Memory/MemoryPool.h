@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../PlatformAbstraction/IntegerDefines.h"
+#include "../PlatformAbstraction/BusWidthDefines.h"
 
 using namespace NPlatformTypes;
 
@@ -16,7 +17,11 @@ struct PoolBlock
 
 private:
     // if 32-bit, need 8 byte padding. if 64-bit, need only 4 bytes
-    PTR_SIZE m_UnusedPadding;
+#ifdef LEE_ENV_32
+    char m_UnusedPadding[8];
+#elif defined LEE_ENV_64
+    char m_UnusedPadding[4];
+#endif
 
 public:
     PoolBlock()
