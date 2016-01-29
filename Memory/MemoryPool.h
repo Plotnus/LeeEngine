@@ -144,6 +144,8 @@ void MemoryPool<BS, NB>::Free(void* ptr)
     char* maxPtr = minPtr + NB * BS;
 
     // assert that ptr is between minPtr and maxPtr
+    // also we know that each block is a given size (BS bytes) so
+    // assert if (ptr - this) is not divisible by BS.
     // should work...
 #endif
 

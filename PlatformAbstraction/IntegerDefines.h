@@ -16,3 +16,14 @@ namespace NWindowsSpecificTypes
 #endif
 }
 #endif
+
+#ifdef __unix__
+namespace NUnixSpecificTypes
+{
+#ifdef __x86_64__
+    #define PTR_SIZE 8
+#else __i386__
+    #define PTR_SIZE 4
+#endif
+}
+#endif
