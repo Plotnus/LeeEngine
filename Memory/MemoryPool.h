@@ -3,6 +3,8 @@
 #include "../PlatformAbstraction/IntegerDefines.h"
 #include "../PlatformAbstraction/BusWidthDefines.h"
 
+#include "../Utilities/SingletonBase.h"
+
 using namespace NPlatformTypes;
 
 // TODO VERY IMPORTANT. this shit needs locking.
@@ -66,10 +68,13 @@ public:
 
 // block size and num blocks
 template<size_t BS, u32 NB>
-class MemoryPool
+class MemoryPool : public SingletonBase<MemoryPool<BS, NB>>
 {
     // in itp 485, this was a singleton. However, in PE, it's not. I think it's best if it's not and we have
     // a singleton memory MANAGER instead? idk lol
+    // UPDATE: no i think it will be faster if it's a singleton.
+    DECLARE_SINGLETON(MemoryPool)
+
 public:
     void Init();
     void Shutdown();
@@ -164,3 +169,15 @@ void MemoryPool<BS, NB>::Free(void* ptr)
 
     m_NumBlocksFree += 1;
 }
+
+// basically if you want a class to use a specific pool for allocation
+// put this macro in the PUBLIC section of the class
+#define REGISTER_ALLOCATION_WITH_POOL(PoolSingleton) \
+	static void* operator new(size_t size)           \
+	{                                                \
+        return PoolSingleton::get().Allocate(size);  \
+	}                                                \
+	static void operator delete(void* ptr)           \
+	{                                                \
+		PoolSingleton::get().Free(ptr);              \
+	}
