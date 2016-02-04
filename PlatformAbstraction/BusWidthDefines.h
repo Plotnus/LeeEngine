@@ -7,7 +7,7 @@
 #define LEE_ENV_32
 #endif
 
-#if __GNUC__ // for gcc... we still need to handle clang
+#ifdef __GNUC__ || defined __clang__ // for gcc... we still need to handle clang
 #ifdef __x86_64__
 #define LEE_ENV_64
 #else
