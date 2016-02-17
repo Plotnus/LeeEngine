@@ -11,23 +11,40 @@
 
  #pragma once
 
-class Mat4x4f
+class mat4f
 {
 public:
-    Mat4x4f();
-    ~Mat4x4f();
+    mat4f();
+    mat4f( const vec4f& col0
+         , const vec4f& col1
+         , const vec4f& col2
+         , const vec4f& col3
+    );
+    
+    ~mat4f();
 
-    float m_data[4][4];
+    /*
+     * @brief calculates and return the trace of the matrix
+     */
+    
+    
+    float m_data[16];
 
     float& operator()(unsigned int row, unsigned int col) const;
 
-    Vec4f operator* (const Vec4f& vec) const;
+    vec4f operator* (const vec4f& vec) const;
+    
+    mat4f operator* (const mat4f other) const;
+    
+    mat4f operator= (const mat4f other);
     /**
      * @brief matrix matrix component wise additios
      * @param other the matrix being added to this
-     * @retval Mat4x4f the component wise sum of this and other
+     * @retval mat4f the component wise sum of this and other
      */
-    Mat4x4f operator+ (const Mat4x4f& mat) const;
+    mat4f operator+ (const mat4f& mat) const;
+
+    const static mat4f identity;
 }
 
  /*
@@ -42,3 +59,4 @@ public:
   * Combining Linear Transformations
   * Identity Matrix
   * Performing Vector Operations with Matrices
+  */
