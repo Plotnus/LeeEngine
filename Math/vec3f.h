@@ -10,6 +10,7 @@
 #pragma once
 
 #include <cmath>
+#include <string>
 
 class vec3f
 {
@@ -62,6 +63,8 @@ public:
     float
     getMagnitudeSquared() const;
     
+    std::string
+    getString() const;
     
     //**************//
     //** MUTATORS **//
@@ -126,7 +129,7 @@ public:
      * @brief
      * @param
      */
-    float
+    void
     operator-= (const vec3f& other);
     /**
      * @brief
@@ -139,8 +142,8 @@ public:
      * @brief
      * @param
      */
-    float
-    operator*= (const vec3f& scale);
+    void
+    operator*= (const float& scale);
     /**
      * @brief
      * @param

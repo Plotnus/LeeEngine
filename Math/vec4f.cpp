@@ -6,6 +6,7 @@
 
 #include "vec4f.h"
 #include <cassert>
+#include <cmath>
 
 //******************//
 //** CONSTRUCTORS **//
@@ -16,7 +17,7 @@ vec4f::vec4f()
 , m_z{0.f}
 , m_w{0.f}
 {
-    return;
+
 }
 
 vec4f::vec4f(const float& x
@@ -29,7 +30,7 @@ vec4f::vec4f(const float& x
 , m_z{z}
 , m_w{w}
 {
-    return;
+
 }
 
 vec4f::vec4f(const vec4f& vect)
@@ -38,14 +39,20 @@ vec4f::vec4f(const vec4f& vect)
 , m_z{vect.m_z}
 , m_w{vect.m_w}
 {
-    return;
+
+}
+
+vec4f::~vec4f()
+{
+    
 }
 //********************(*//
 //** CONST OPERATIONS **//
 //**********************//
-vec4f vec4f::CrossProduct(const vec4f& other) const
+vec4f
+vec4f::crossProduct(const vec4f& other) const
 {
-    assert(this.m_w == 0.f);
+    assert(this->m_w == 0.f);
     assert(other.m_w ==0.f);
     
     vec4f result = vec4f(0.f, 0.f, 0.f, 0.f);
@@ -56,9 +63,10 @@ vec4f vec4f::CrossProduct(const vec4f& other) const
     return result;
 }
 
-float vec4f::DotProduct(const vec4f& other) const
+float
+vec4f::dotProduct(const vec4f& other) const
 {
-    assert(this.m_w == 0.f);
+    assert(this->m_w == 0.f);
     assert(other.m_w == 0.f);
     
     float result = 0.f;
@@ -69,16 +77,18 @@ float vec4f::DotProduct(const vec4f& other) const
     return result;
 }
 
-float vec4f::GetMagnitude() const
+float
+vec4f::getMagnitude() const
 {
-    assert(this.m_w == 0.f);
+    assert(this->m_w == 0.f);
     
-    return sqrt(GetMagnitudeSquared());
+    return sqrt(getMagnitudeSquared());
 }
 
-float vec4f::GetMagnitudeSquared() const
+float
+vec4f::getMagnitudeSquared() const
 {
-    assert(this.m_w == 0.f);
+    assert(this->m_w == 0.f);
     
     float result = 0.f;
     result += m_x * m_x;
@@ -88,19 +98,33 @@ float vec4f::GetMagnitudeSquared() const
     return result;
 }
 
+std::string
+vec4f::getString() const
+{
+    std::string result = "vec4f:";
+    result +=  " m_x=" + std::to_string(m_x);
+    result += ", m_y=" + std::to_string(m_y);
+    result += ", m_z=" + std::to_string(m_z);
+    result += ", m_w=" + std::to_string(m_w);
+    
+    return result;
+}
+
 //**************//
 //** MUTATORS **//
 //**************//
-void vec4f::Normalize()
+void
+vec4f::normalize()
 {
-    assert(this.m_w == 0.f);
+    assert(this->m_w == 0.f);
     
-    (*this) /= this->GetMagnitude();
+    (*this) /= this->getMagnitude();
 }
 //************************//
 //** OPERATOR OVERLOADS **//
 //************************//
-float vec4f::operator[] (const int& index) const
+float
+vec4f::operator[] (const int& index) const
 {
     assert(index >= 0);
     assert(index <= 3);
@@ -125,10 +149,9 @@ float vec4f::operator[] (const int& index) const
     return result;
 }
 
-vec4f& vec4f::operator= (const vec4f& other)
+vec4f&
+vec4f::operator= (const vec4f& other)
 {
-    assert(&other != nullptr);
-    
     this->m_x = other.m_x;
     this->m_y = other.m_y;
     this->m_z = other.m_z;
@@ -137,11 +160,10 @@ vec4f& vec4f::operator= (const vec4f& other)
     return *this;
 }
 
-vec4f vec4f::operator+ (const vec4f& other) const
+vec4f
+vec4f::operator+ (const vec4f& other) const
 {
-    assert(&other != nullptr);
-    
-    vec4f result = vec4f(0.f, 0.f, 0.f);
+    vec4f result = vec4f();
     result.m_x = this->m_x + other.m_x;
     result.m_y = this->m_y + other.m_y;
     result.m_z = this->m_z + other.m_z;
@@ -151,17 +173,15 @@ vec4f vec4f::operator+ (const vec4f& other) const
     
     return result;
 }
-void vec4f::operator+= (const vec4f& other)
+void
+vec4f::operator+= (const vec4f& other)
 {
-    assert(&other != nullptr);
-    
     *this = *this + other;
 }
 
-vec4f vec4f::operator-  (const vec4f& other) const
+vec4f
+vec4f::operator-  (const vec4f& other) const
 {
-    assert(&other != nullptr);
-    
     vec4f result = vec4f();
     result.m_x = this->m_x - other.m_x;
     result.m_y = this->m_y - other.m_y;
@@ -174,14 +194,14 @@ vec4f vec4f::operator-  (const vec4f& other) const
     return result;
 }
 
-void vec4f::operator-=  (const vec4f& other)
+void
+vec4f::operator-=  (const vec4f& other)
 {
-    assert(&other != nullptr);
-    
     *this = *this - other;
 }
 
-vec4f vec4f::operator*  (const float& scale) const
+vec4f
+vec4f::operator*  (const float& scale) const
 {
     
     vec4f result = vec4f();
@@ -193,7 +213,8 @@ vec4f vec4f::operator*  (const float& scale) const
 }
 
 
-void vec4f::operator*=  (const float& scale)
+void
+vec4f::operator*=  (const float& scale)
 {
     this->m_x *= scale;
     this->m_y *= scale;
@@ -202,23 +223,22 @@ void vec4f::operator*=  (const float& scale)
 }
 /** @todo: add component wise multiplication and division */
 
-vec4f vec4f::operator/  (const float& scale) const
+vec4f
+vec4f::operator/  (const float& scale) const
 {
-    vec4f result = Vect4f();
+    vec4f result = vec4f();
     
-    result.m_x = this->m_x/rhs;
-    result.m_y = this->m_y/rhs;
-    result.m_z = this->m_z/rhs;
+    result.m_x = this->m_x/scale;
+    result.m_y = this->m_y/scale;
+    result.m_z = this->m_z/scale;
     
-    retun result;
+    return result;
 }
 
-void vec4f::operator/=  (const float& rhs)
+void
+vec4f::operator/=  (const float& scale)
 {
-    this->m_x /= rhs;
-    this->m_y /= rhs;
-    this->m_z /= rhs;
+    this->m_x /= scale;
+    this->m_y /= scale;
+    this->m_z /= scale;
 }
-
-
-

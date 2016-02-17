@@ -18,9 +18,9 @@ vec3f::vec3f()
 
 }
 
-vec3f::vec3f(const float& x
-            ,const float& y
-            ,const float& z
+vec3f::vec3f(const float x
+            ,const float y
+            ,const float z
                  )
 : m_x{x}
 , m_y{y}
@@ -35,6 +35,11 @@ vec3f::vec3f(const vec3f& vect)
 , m_z{vect.m_z}
 {
 
+}
+
+vec3f::~vec3f()
+{
+    
 }
 //********************(*//
 //** CONST OPERATIONS **//
@@ -64,11 +69,11 @@ vec3f::dotProduct(const vec3f& other) const
 float
 vec3f::getMagnitude() const
 {
-    return sqrt(GetMagnitudeSquared());
+    return sqrt(getMagnitudeSquared());
 }
 
 float
-vec3f::GetMagnitudeSquared() const
+vec3f::getMagnitudeSquared() const
 {
     float result = 0.f;
     result += m_x * m_x;
@@ -78,13 +83,24 @@ vec3f::GetMagnitudeSquared() const
     return result;
 }
 
+std::string
+vec3f::getString() const
+{
+    std::string result = "vec4f: ";
+    
+    result +=   "m_x="+std::to_string(m_x);
+    result += ", m_y="+std::to_string(m_y);
+    result += ", m_z="+std::to_string(m_y)+"\n";
+    
+    return result;
+}
 //**************//
 //** MUTATORS **//
 //**************//
 void
 vec3f::normalize()
 {
-    (*this) /= this->GetMagnitude();
+    (*this) /= this->getMagnitude();
 }
 //************************//
 //** OPERATOR OVERLOADS **//
@@ -114,8 +130,6 @@ vec3f::operator[] (const int& index) const
 vec3f&
 vec3f::operator= (const vec3f& other)
 {
-    assert(&other != nullptr);
-    
     this->m_x = other.m_x;
     this->m_y = other.m_y;
     this->m_z = other.m_z;
@@ -126,8 +140,6 @@ vec3f::operator= (const vec3f& other)
 vec3f
 vec3f::operator+ (const vec3f& other) const
 {
-    assert(&other != nullptr);
-    
     vec3f result = vec3f(0.f, 0.f, 0.f);
     result.m_x = this->m_x + other.m_x;
     result.m_y = this->m_y + other.m_y;
@@ -138,16 +150,12 @@ vec3f::operator+ (const vec3f& other) const
 void
 vec3f::operator+= (const vec3f& other)
 {
-    assert(&other != nullptr);
-    
     *this = *this + other;
 }
 
 vec3f
 vec3f::operator-  (const vec3f& other) const
 {
-    assert(&other != nullptr);
-    
     vec3f result = vec3f();
     result.m_x = this->m_x - other.m_x;
     result.m_y = this->m_y - other.m_y;
@@ -159,15 +167,12 @@ vec3f::operator-  (const vec3f& other) const
 void
 vec3f::operator-=  (const vec3f& other)
 {
-    assert(&other != nullptr);
-    
     *this = *this - other;
 }
 
 vec3f
 vec3f::operator*  (const float& scale) const
 {
-    
     vec3f result = vec3f();
     result.m_x = this->m_x * scale;
     result.m_y = this->m_y * scale;
@@ -189,13 +194,13 @@ vec3f::operator*=  (const float& scale)
 vec3f
 vec3f::operator/  (const float& scale) const
 {
-    vec3f result = Vect4f();
+    vec3f result = vec3f();
     
-    result.m_x = this->m_x/rhs;
-    result.m_y = this->m_y/rhs;
-    result.m_z = this->m_z/rhs;
+    result.m_x = this->m_x/scale;
+    result.m_y = this->m_y/scale;
+    result.m_z = this->m_z/scale;
     
-    retun result;
+    return result;
 }
 
 void

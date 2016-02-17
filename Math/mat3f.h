@@ -10,6 +10,7 @@
  */
 
  #pragma once
+#include <string>
 
 // pre-declares
 class vec3f;
@@ -47,8 +48,11 @@ public:
 
     mat3f
     getDiagonalMat();
+    
+    std::string
+    getString() const;
 
-    float&
+    float
     operator()(unsigned int row, unsigned int col) const;
 
     /**
@@ -67,10 +71,10 @@ public:
     operator* (const vec3f& vec) const;
     
     mat3f
-    operator* (const mat3f other) const;
+    operator* (const mat3f& other) const;
     
-    mat3f
-    operator= (const mat3f other);
+    mat3f&
+    operator= (const mat3f& other);
     const static mat3f identity;
 };
 

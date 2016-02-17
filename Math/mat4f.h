@@ -10,6 +10,8 @@
  */
 
  #pragma once
+#include <string>
+#include "vec4f.h"
 
 class mat4f
 {
@@ -30,22 +32,30 @@ public:
     
     float m_data[16];
 
-    float& operator()(unsigned int row, unsigned int col) const;
+    std::string
+    getString();
+    
+    float
+    operator()(unsigned int row, unsigned int col) const;
 
-    vec4f operator* (const vec4f& vec) const;
+    vec4f
+    operator* (const vec4f& vec) const;
     
-    mat4f operator* (const mat4f other) const;
+    mat4f
+    operator* (const mat4f& other) const;
     
-    mat4f operator= (const mat4f other);
+    mat4f
+    operator= (const mat4f& other);
     /**
      * @brief matrix matrix component wise additios
      * @param other the matrix being added to this
      * @retval mat4f the component wise sum of this and other
      */
-    mat4f operator+ (const mat4f& mat) const;
+    mat4f
+    operator+ (const mat4f& mat) const;
 
     const static mat4f identity;
-}
+};
 
  /*
   * @todo implement the following (taken from the section of book)
