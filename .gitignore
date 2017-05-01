@@ -7,3 +7,5 @@
 *.a
 *.lib
 *.exe
+*.out
+*.DS_Store
